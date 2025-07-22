@@ -3,11 +3,19 @@ import { motion } from 'framer-motion';
 import { 
   FaUser, FaLock, FaEdit, FaPlus, FaTrash, FaSave, FaEye, FaSignOutAlt,
   FaHome, FaInfoCircle, FaCogs, FaBriefcase, FaGraduationCap, 
-  FaServicestack, FaQuoteLeft, FaEnvelope, FaBlog, FaTimes,
+  FaEnvelope, FaTimes,
   FaEyeSlash, FaArrowUp, FaArrowDown, FaCog, FaGripVertical
 } from 'react-icons/fa';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Admin = () => {
+  const { 
+    homeData, aboutData, skillsData, experienceData, educationData, 
+    projectsData, contactData, updateHomeData, updateAboutData, 
+    updateSkillsData, updateExperienceData, updateEducationData, 
+    updateProjectsData, updateContactData 
+  } = usePortfolio();
+  
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [activeTab, setActiveTab] = useState('home');
@@ -19,138 +27,13 @@ const Admin = () => {
     experience: true,
     education: true,
     projects: true,
-    services: true,
-    testimonials: true,
-    blog: true,
     contact: true
   });
   const [sectionOrder, setSectionOrder] = useState([
-    'home', 'about', 'skills', 'experience', 'education', 'projects', 'testimonials', 'blog', 'contact'
-  ]);
-
-  // All portfolio data states
-  const [homeData, setHomeData] = useState({
-    title: 'IT Specialist & Technical Support Expert',
-    subtitle: 'Passionate about technology and problem-solving',
-    description: 'Experienced IT professional with expertise in system administration, technical support, and cybersecurity. Dedicated to delivering efficient solutions and exceptional user experiences.',
-    ctaText: 'Get In Touch'
-  });
-
-  const [aboutData, setAboutData] = useState({
-    title: 'About Me',
-    description: 'I am an experienced IT Specialist with a strong background in technical support, system administration, and cybersecurity. My passion lies in solving complex technical challenges and helping organizations optimize their IT infrastructure.',
-    experience: '3+ Years',
-    projects: '50+ Projects',
-    clients: '100+ Clients'
-  });
-
-  const [skillsData, setSkillsData] = useState([
-    { id: 1, name: 'System Administration', level: 90, category: 'Infrastructure' },
-    { id: 2, name: 'Technical Support', level: 95, category: 'Support' },
-    { id: 3, name: 'Network Configuration', level: 85, category: 'Networking' },
-    { id: 4, name: 'Cybersecurity', level: 80, category: 'Security' },
-    { id: 5, name: 'Windows Server', level: 88, category: 'Infrastructure' },
-    { id: 6, name: 'Active Directory', level: 85, category: 'Infrastructure' }
-  ]);
-
-  const [experienceData, setExperienceData] = useState([
-    {
-      id: 1,
-      title: 'IT Specialist',
-      company: 'Al-Matjar Al-Mutazamin Commercial',
-      period: '2023 - Present',
-      description: 'Leading IT operations and providing comprehensive technical support for enterprise systems.',
-      responsibilities: [
-        'System administration and maintenance',
-        'Network troubleshooting and optimization',
-        'User support and training',
-        'Security implementation and monitoring'
-      ]
-    },
-    {
-      id: 2,
-      title: 'Cooperative Training Student',
-      company: 'King Faisal University',
-      period: '2022 - 2023',
-      description: 'Gained hands-on experience in IT support and system administration.',
-      responsibilities: [
-        'Technical support for faculty and students',
-        'Hardware and software troubleshooting',
-        'Network maintenance assistance',
-        'Documentation and reporting'
-      ]
-    }
-  ]);
-
-  const [educationData, setEducationData] = useState({
-    degree: 'Bachelor of Information Technology',
-    university: 'King Faisal University',
-    year: '2023',
-    gpa: '3.8/4.0',
-    certifications: [
-      { id: 1, name: 'ITIL® 4 Foundation', issuer: 'Axelos', year: '2023' },
-      { id: 2, name: 'Cisco Certified Network Associate (CCNA)', issuer: 'Cisco', year: '2023' },
-      { id: 3, name: 'Google Technical Support Fundamentals', issuer: 'Google', year: '2022' },
-      { id: 4, name: 'CompTIA Security+', issuer: 'CompTIA', year: 'In Progress' }
-    ]
-  });
-
-  const [projectsData, setProjectsData] = useState([
-    {
-      id: 1,
-      title: 'Network Security Implementation',
-      description: 'Comprehensive network security solution for enterprise environment',
-      technologies: ['Cisco', 'Firewall', 'VPN', 'Network Security'],
-      link: '#',
-      github: '#',
-      status: 'Completed',
-      category: 'Security'
-    },
-    {
-      id: 2,
-      title: 'IT Infrastructure Upgrade',
-      description: 'Complete infrastructure modernization project',
-      technologies: ['Windows Server', 'Active Directory', 'VMware', 'Cloud Migration'],
-      link: '#',
-      github: '#',
-      status: 'Completed',
-      category: 'Infrastructure'
-    }
+    'home', 'about', 'skills', 'experience', 'education', 'projects', 'contact'
   ]);
 
 
-
-  const [testimonialsData, setTestimonialsData] = useState([
-    {
-      id: 1,
-      name: 'Ahmed Al-Rashid',
-      position: 'IT Manager',
-      company: 'Tech Solutions Inc.',
-      content: 'Saud provided exceptional technical support and helped us resolve critical system issues quickly.',
-      rating: 5
-    }
-  ]);
-
-  const [blogData, setBlogData] = useState([
-    {
-      id: 1,
-      title: 'Best Practices in IT Security',
-      content: 'Essential security practices every IT professional should know...',
-      excerpt: 'Essential security practices every IT professional should know.',
-      date: '2024-01-15',
-      category: 'Security',
-      status: 'Published'
-    }
-  ]);
-
-  const [contactData, setContactData] = useState({
-    email: 'saud.albin.zaid@example.com',
-    phone: '+966 XX XXX XXXX',
-    location: 'Saudi Arabia',
-    linkedin: 'https://linkedin.com/in/saud-albin-zaid',
-    github: 'https://github.com/saud-albin-zaid',
-    availability: 'Available for freelance projects'
-  });
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -171,13 +54,13 @@ const Admin = () => {
     setEditMode(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  // Update functions for each section
-  const updateHomeData = (field, value) => {
-    setHomeData(prev => ({ ...prev, [field]: value }));
+  // Update functions for each section (now using context)
+  const handleUpdateHomeData = (field, value) => {
+    updateHomeData({ ...homeData, [field]: value });
   };
 
-  const updateAboutData = (field, value) => {
-    setAboutData(prev => ({ ...prev, [field]: value }));
+  const handleUpdateAboutData = (field, value) => {
+    updateAboutData({ ...aboutData, [field]: value });
   };
 
   const addSkill = () => {
@@ -185,19 +68,22 @@ const Admin = () => {
       id: Date.now(),
       name: 'New Skill',
       level: 50,
-      category: 'General'
+      category: 'General',
+      icon: 'FaCog'
     };
-    setSkillsData(prev => [...prev, newSkill]);
+    updateSkillsData([...skillsData, newSkill]);
   };
 
   const updateSkill = (id, field, value) => {
-    setSkillsData(prev => prev.map(skill => 
+    const updatedSkills = skillsData.map(skill => 
       skill.id === id ? { ...skill, [field]: value } : skill
-    ));
+    );
+    updateSkillsData(updatedSkills);
   };
 
   const deleteSkill = (id) => {
-    setSkillsData(prev => prev.filter(skill => skill.id !== id));
+    const updatedSkills = skillsData.filter(skill => skill.id !== id);
+    updateSkillsData(updatedSkills);
   };
 
   const addExperience = () => {
@@ -209,17 +95,19 @@ const Admin = () => {
       description: 'Job description',
       responsibilities: ['Responsibility 1']
     };
-    setExperienceData(prev => [...prev, newExp]);
+    updateExperienceData([...experienceData, newExp]);
   };
 
   const updateExperience = (id, field, value) => {
-    setExperienceData(prev => prev.map(exp => 
+    const updatedExperience = experienceData.map(exp => 
       exp.id === id ? { ...exp, [field]: value } : exp
-    ));
+    );
+    updateExperienceData(updatedExperience);
   };
 
   const deleteExperience = (id) => {
-    setExperienceData(prev => prev.filter(exp => exp.id !== id));
+    const updatedExperience = experienceData.filter(exp => exp.id !== id);
+    updateExperienceData(updatedExperience);
   };
 
   const addProject = () => {
@@ -233,44 +121,25 @@ const Admin = () => {
       status: 'Planning',
       category: 'General'
     };
-    setProjectsData(prev => [...prev, newProject]);
+    updateProjectsData([...projectsData, newProject]);
   };
 
   const updateProject = (id, field, value) => {
-    setProjectsData(prev => prev.map(project => 
+    const updatedProjects = projectsData.map(project => 
       project.id === id ? { ...project, [field]: value } : project
-    ));
+    );
+    updateProjectsData(updatedProjects);
   };
 
   const deleteProject = (id) => {
-    setProjectsData(prev => prev.filter(project => project.id !== id));
+    const updatedProjects = projectsData.filter(project => project.id !== id);
+    updateProjectsData(updatedProjects);
   };
 
-  const addBlogPost = () => {
-    const newPost = {
-      id: Date.now(),
-      title: 'New Blog Post',
-      content: 'Blog content...',
-      excerpt: 'Blog excerpt...',
-      date: new Date().toISOString().split('T')[0],
-      category: 'General',
-      status: 'Draft'
-    };
-    setBlogData(prev => [...prev, newPost]);
-  };
 
-  const updateBlogPost = (id, field, value) => {
-    setBlogData(prev => prev.map(post => 
-      post.id === id ? { ...post, [field]: value } : post
-    ));
-  };
 
-  const deleteBlogPost = (id) => {
-    setBlogData(prev => prev.filter(post => post.id !== id));
-  };
-
-  const updateContactData = (field, value) => {
-    setContactData(prev => ({ ...prev, [field]: value }));
+  const handleUpdateContactData = (field, value) => {
+    updateContactData({ ...contactData, [field]: value });
   };
 
   // Section management functions
@@ -304,7 +173,7 @@ const Admin = () => {
     if (currentIndex > 0) {
       const newSkills = [...skillsData];
       [newSkills[currentIndex - 1], newSkills[currentIndex]] = [newSkills[currentIndex], newSkills[currentIndex - 1]];
-      setSkillsData(newSkills);
+      updateSkillsData(newSkills);
     }
   };
 
@@ -313,7 +182,7 @@ const Admin = () => {
     if (currentIndex < skillsData.length - 1) {
       const newSkills = [...skillsData];
       [newSkills[currentIndex], newSkills[currentIndex + 1]] = [newSkills[currentIndex + 1], newSkills[currentIndex]];
-      setSkillsData(newSkills);
+      updateSkillsData(newSkills);
     }
   };
 
@@ -322,7 +191,7 @@ const Admin = () => {
     if (currentIndex > 0) {
       const newProjects = [...projectsData];
       [newProjects[currentIndex - 1], newProjects[currentIndex]] = [newProjects[currentIndex], newProjects[currentIndex - 1]];
-      setProjectsData(newProjects);
+      updateProjectsData(newProjects);
     }
   };
 
@@ -331,31 +200,15 @@ const Admin = () => {
     if (currentIndex < projectsData.length - 1) {
       const newProjects = [...projectsData];
       [newProjects[currentIndex], newProjects[currentIndex + 1]] = [newProjects[currentIndex + 1], newProjects[currentIndex]];
-      setProjectsData(newProjects);
+      updateProjectsData(newProjects);
     }
   };
 
-  const moveBlogPostUp = (postId) => {
-    const currentIndex = blogData.findIndex(post => post.id === postId);
-    if (currentIndex > 0) {
-      const newPosts = [...blogData];
-      [newPosts[currentIndex - 1], newPosts[currentIndex]] = [newPosts[currentIndex], newPosts[currentIndex - 1]];
-      setBlogData(newPosts);
-    }
-  };
 
-  const moveBlogPostDown = (postId) => {
-    const currentIndex = blogData.findIndex(post => post.id === postId);
-    if (currentIndex < blogData.length - 1) {
-      const newPosts = [...blogData];
-      [newPosts[currentIndex], newPosts[currentIndex + 1]] = [newPosts[currentIndex + 1], newPosts[currentIndex]];
-      setBlogData(newPosts);
-    }
-  };
 
   // Education functions
-  const updateEducationData = (field, value) => {
-    setEducationData(prev => ({ ...prev, [field]: value }));
+  const handleUpdateEducationData = (field, value) => {
+    updateEducationData({ ...educationData, [field]: value });
   };
 
   const addCertification = () => {
@@ -365,52 +218,31 @@ const Admin = () => {
       issuer: 'Issuer Name',
       year: '2024'
     };
-    setEducationData(prev => ({
-      ...prev,
-      certifications: [...prev.certifications, newCert]
-    }));
+    updateEducationData({
+      ...educationData,
+      certifications: [...educationData.certifications, newCert]
+    });
   };
 
   const updateCertification = (id, field, value) => {
-    setEducationData(prev => ({
-      ...prev,
-      certifications: prev.certifications.map(cert => 
+    updateEducationData({
+      ...educationData,
+      certifications: educationData.certifications.map(cert => 
         cert.id === id ? { ...cert, [field]: value } : cert
       )
-    }));
+    });
   };
 
   const deleteCertification = (id) => {
-    setEducationData(prev => ({
-      ...prev,
-      certifications: prev.certifications.filter(cert => cert.id !== id)
-    }));
+    updateEducationData({
+      ...educationData,
+      certifications: educationData.certifications.filter(cert => cert.id !== id)
+    });
   };
 
 
 
-  // Testimonials functions
-  const addTestimonial = () => {
-    const newTestimonial = {
-      id: Date.now(),
-      name: 'Client Name',
-      position: 'Position',
-      company: 'Company',
-      content: 'Testimonial content...',
-      rating: 5
-    };
-    setTestimonialsData(prev => [...prev, newTestimonial]);
-  };
 
-  const updateTestimonial = (id, field, value) => {
-    setTestimonialsData(prev => prev.map(testimonial => 
-      testimonial.id === id ? { ...testimonial, [field]: value } : testimonial
-    ));
-  };
-
-  const deleteTestimonial = (id) => {
-    setTestimonialsData(prev => prev.filter(testimonial => testimonial.id !== id));
-  };
 
   if (!isAuthenticated) {
     return (
@@ -484,8 +316,6 @@ const Admin = () => {
     { id: 'experience', label: 'Experience', icon: FaBriefcase },
     { id: 'education', label: 'Education', icon: FaGraduationCap },
     { id: 'projects', label: 'Projects', icon: FaEdit },
-    { id: 'testimonials', label: 'Testimonials', icon: FaQuoteLeft },
-    { id: 'blog', label: 'Blog', icon: FaBlog },
     { id: 'contact', label: 'Contact', icon: FaEnvelope },
     { id: 'preview', label: 'Preview', icon: FaEye }
   ];
@@ -550,8 +380,6 @@ const Admin = () => {
                   experience: 'Experience',
                   education: 'Education',
                   projects: 'Projects',
-                  testimonials: 'Testimonials',
-                  blog: 'Blog',
                   contact: 'Contact'
                 };
                 
@@ -661,7 +489,7 @@ const Admin = () => {
                     key === 'description' ? (
                       <textarea
                         value={value}
-                        onChange={(e) => updateHomeData(key, e.target.value)}
+                        onChange={(e) => handleUpdateHomeData(key, e.target.value)}
                         className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors duration-300"
                         rows="3"
                       />
@@ -669,7 +497,7 @@ const Admin = () => {
                       <input
                         type="text"
                         value={value}
-                        onChange={(e) => updateHomeData(key, e.target.value)}
+                        onChange={(e) => handleUpdateHomeData(key, e.target.value)}
                         className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors duration-300"
                       />
                     )
@@ -711,21 +539,46 @@ const Admin = () => {
                     key === 'description' ? (
                       <textarea
                         value={value}
-                        onChange={(e) => updateAboutData(key, e.target.value)}
+                        onChange={(e) => handleUpdateAboutData(key, e.target.value)}
                         className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors duration-300"
                         rows="4"
                       />
+                    ) : key === 'journey' ? (
+                      <div className="space-y-3">
+                        {Object.entries(value).map(([paragraphKey, paragraphValue]) => (
+                          <div key={paragraphKey}>
+                            <label className="block text-gray-400 mb-1 text-sm capitalize">{paragraphKey.replace(/([A-Z])/g, ' $1')}</label>
+                            <textarea
+                              value={paragraphValue}
+                              onChange={(e) => handleUpdateAboutData('journey', { ...value, [paragraphKey]: e.target.value })}
+                              className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500 transition-colors duration-300"
+                              rows="3"
+                            />
+                          </div>
+                        ))}
+                      </div>
                     ) : (
                       <input
                         type="text"
                         value={value}
-                        onChange={(e) => updateAboutData(key, e.target.value)}
+                        onChange={(e) => handleUpdateAboutData(key, e.target.value)}
                         className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors duration-300"
                       />
                     )
                   ) : (
                     <div className="px-4 py-3 bg-gray-700 rounded-lg text-gray-300">
-                      {value}
+                      {key === 'journey' ? (
+                        <div className="space-y-2">
+                          {Object.entries(value).map(([paragraphKey, paragraphValue]) => (
+                            <div key={paragraphKey}>
+                              <div className="text-gray-400 text-sm mb-1 capitalize">{paragraphKey.replace(/([A-Z])/g, ' $1')}</div>
+                              <div className="text-gray-300">{paragraphValue}</div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        value
+                      )}
                     </div>
                   )}
                 </div>
@@ -863,7 +716,7 @@ const Admin = () => {
             </div>
 
             <div className="space-y-4">
-              {projectsData.map(project => (
+              {projectsData.map((project, index) => (
                 <div key={project.id} className="bg-gray-700 rounded-lg p-4">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex-1">
@@ -1126,7 +979,7 @@ const Admin = () => {
                         <input
                           type="text"
                           value={value}
-                          onChange={(e) => updateEducationData(key, e.target.value)}
+                          onChange={(e) => handleUpdateEducationData(key, e.target.value)}
                           className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
                         />
                       ) : (
@@ -1206,253 +1059,9 @@ const Admin = () => {
           </motion.div>
         )}
 
-        {/* Testimonials Tab */}
-        {activeTab === 'testimonials' && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-gray-800 rounded-lg p-6"
-          >
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-white">Testimonials Management</h2>
-              <button
-                onClick={addTestimonial}
-                className="flex items-center bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors duration-300"
-              >
-                <FaPlus className="mr-2" />
-                Add Testimonial
-              </button>
-            </div>
 
-            <div className="space-y-4">
-              {testimonialsData.map((testimonial, index) => (
-                <div key={testimonial.id} className="bg-gray-700 rounded-lg p-4">
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      {editMode[`testimonial_${testimonial.id}`] ? (
-                        <div className="space-y-3">
-                          <input
-                            type="text"
-                            value={testimonial.name}
-                            onChange={(e) => updateTestimonial(testimonial.id, 'name', e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            placeholder="Client name"
-                          />
-                          <input
-                            type="text"
-                            value={testimonial.position}
-                            onChange={(e) => updateTestimonial(testimonial.id, 'position', e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            placeholder="Position"
-                          />
-                          <input
-                            type="text"
-                            value={testimonial.company}
-                            onChange={(e) => updateTestimonial(testimonial.id, 'company', e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            placeholder="Company"
-                          />
-                          <textarea
-                            value={testimonial.content}
-                            onChange={(e) => updateTestimonial(testimonial.id, 'content', e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            rows="4"
-                            placeholder="Testimonial content"
-                          />
-                          <select
-                            value={testimonial.rating}
-                            onChange={(e) => updateTestimonial(testimonial.id, 'rating', parseInt(e.target.value))}
-                            className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                          >
-                            <option value={5}>5 Stars</option>
-                            <option value={4}>4 Stars</option>
-                            <option value={3}>3 Stars</option>
-                            <option value={2}>2 Stars</option>
-                            <option value={1}>1 Star</option>
-                          </select>
-                        </div>
-                      ) : (
-                        <div>
-                          <div className="flex items-center mb-2">
-                            <h3 className="text-lg font-semibold text-white mr-3">{testimonial.name}</h3>
-                            <div className="flex text-yellow-400">
-                              {[...Array(testimonial.rating)].map((_, i) => (
-                                <span key={i}>★</span>
-                              ))}
-                            </div>
-                          </div>
-                          <p className="text-red-400 text-sm mb-2">{testimonial.position} at {testimonial.company}</p>
-                          <p className="text-gray-300 italic">"{testimonial.content}"</p>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex gap-2 ml-4">
-                      <button
-                        onClick={() => toggleEditMode('testimonial', testimonial.id)}
-                        className="text-green-400 hover:text-green-300 transition-colors duration-300"
-                      >
-                        {editMode[`testimonial_${testimonial.id}`] ? <FaSave /> : <FaEdit />}
-                      </button>
-                      <button
-                        onClick={() => deleteTestimonial(testimonial.id)}
-                        className="text-red-400 hover:text-red-300 transition-colors duration-300"
-                      >
-                        <FaTrash />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
 
-        {/* Blog Tab */}
-        {activeTab === 'blog' && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-gray-800 rounded-lg p-6"
-          >
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-white">Blog Management</h2>
-              <button
-                onClick={addBlogPost}
-                className="flex items-center bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors duration-300"
-              >
-                <FaPlus className="mr-2" />
-                Add Post
-              </button>
-            </div>
 
-            <div className="space-y-4">
-               {blogData.map((post, index) => (
-                 <div key={post.id} className="bg-gray-700 rounded-lg p-4">
-                   <div className="flex justify-between items-start">
-                     <div className="flex items-center mr-4">
-                       <FaGripVertical className="text-gray-400 mr-2" />
-                       <span className="text-gray-400 text-sm">#{index + 1}</span>
-                     </div>
-                     <div className="flex-1">
-                       {editMode[`blog_${post.id}`] ? (
-                        <div className="space-y-3">
-                          <input
-                            type="text"
-                            value={post.title}
-                            onChange={(e) => updateBlogPost(post.id, 'title', e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            placeholder="Post title"
-                          />
-                          <textarea
-                            value={post.excerpt}
-                            onChange={(e) => updateBlogPost(post.id, 'excerpt', e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            rows="2"
-                            placeholder="Post excerpt"
-                          />
-                          <textarea
-                            value={post.content}
-                            onChange={(e) => updateBlogPost(post.id, 'content', e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            rows="5"
-                            placeholder="Post content"
-                          />
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <input
-                              type="date"
-                              value={post.date}
-                              onChange={(e) => updateBlogPost(post.id, 'date', e.target.value)}
-                              className="px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            />
-                            <input
-                              type="text"
-                              value={post.category}
-                              onChange={(e) => updateBlogPost(post.id, 'category', e.target.value)}
-                              className="px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                              placeholder="Category"
-                            />
-                            <select
-                              value={post.status}
-                              onChange={(e) => updateBlogPost(post.id, 'status', e.target.value)}
-                              className="px-3 py-2 bg-gray-600 border border-gray-500 rounded text-white focus:outline-none focus:border-red-500"
-                            >
-                              <option value="Draft">Draft</option>
-                              <option value="Published">Published</option>
-                              <option value="Archived">Archived</option>
-                            </select>
-                          </div>
-                        </div>
-                      ) : (
-                        <div>
-                          <h3 className="text-lg font-semibold text-white mb-2">{post.title}</h3>
-                          <p className="text-gray-300 mb-2">{post.excerpt}</p>
-                          <div className="flex gap-2">
-                            <span className="bg-red-500/20 text-red-400 px-2 py-1 rounded text-sm">
-                              {post.category}
-                            </span>
-                            <span className={`px-2 py-1 rounded text-sm ${
-                              post.status === 'Published' ? 'bg-green-500/20 text-green-400' :
-                              post.status === 'Draft' ? 'bg-yellow-500/20 text-yellow-400' :
-                              'bg-gray-500/20 text-gray-400'
-                            }`}>
-                              {post.status}
-                            </span>
-                            <span className="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-sm">
-                              {post.date}
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex gap-2 ml-4">
-                       {/* Reorder buttons */}
-                       <button
-                         onClick={() => moveBlogPostUp(post.id)}
-                         disabled={index === 0}
-                         className={`transition-colors duration-300 ${
-                           index === 0
-                             ? 'text-gray-500 cursor-not-allowed'
-                             : 'text-blue-400 hover:text-blue-300'
-                         }`}
-                         title="Move Up"
-                       >
-                         <FaArrowUp />
-                       </button>
-                       <button
-                         onClick={() => moveBlogPostDown(post.id)}
-                         disabled={index === blogData.length - 1}
-                         className={`transition-colors duration-300 ${
-                           index === blogData.length - 1
-                             ? 'text-gray-500 cursor-not-allowed'
-                             : 'text-blue-400 hover:text-blue-300'
-                         }`}
-                         title="Move Down"
-                       >
-                         <FaArrowDown />
-                       </button>
-                       
-                       {/* Edit and Delete buttons */}
-                       <button
-                         onClick={() => toggleEditMode('blog', post.id)}
-                         className="text-green-400 hover:text-green-300 transition-colors duration-300"
-                       >
-                         {editMode[`blog_${post.id}`] ? <FaSave /> : <FaEdit />}
-                       </button>
-                       <button
-                         onClick={() => deleteBlogPost(post.id)}
-                         className="text-red-400 hover:text-red-300 transition-colors duration-300"
-                       >
-                         <FaTrash />
-                       </button>
-                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
 
         {/* Contact Tab */}
         {activeTab === 'contact' && (
@@ -1481,7 +1090,7 @@ const Admin = () => {
                     <input
                       type={key === 'email' ? 'email' : key.includes('link') ? 'url' : 'text'}
                       value={value}
-                      onChange={(e) => updateContactData(key, e.target.value)}
+                      onChange={(e) => handleUpdateContactData(key, e.target.value)}
                       className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors duration-300"
                     />
                   ) : (

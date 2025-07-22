@@ -131,10 +131,7 @@ const Education = () => {
                       <FaMapMarkerAlt className="mr-2" />
                       <span>{edu.location}</span>
                     </div>
-                    <div className="flex items-center text-gray-300">
-                      <FaAward className="mr-2" />
-                      <span>GPA: {edu.gpa}</span>
-                    </div>
+
                   </div>
                 </div>
 
@@ -197,37 +194,7 @@ const Education = () => {
           </div>
         </motion.div>
 
-        {/* Education Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-gradient-to-r from-red-900/20 to-gray-800/20 rounded-lg p-8 mt-16"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <FaGraduationCap className="text-4xl text-red-400 mx-auto mb-4" />
-              <h4 className="text-2xl font-bold text-white mb-2">1</h4>
-              <p className="text-gray-300">Bachelor's Degree</p>
-            </div>
-            <div>
-              <FaCertificate className="text-4xl text-red-400 mx-auto mb-4" />
-              <h4 className="text-2xl font-bold text-white mb-2">{certifications.length}</h4>
-              <p className="text-gray-300">Certifications</p>
-            </div>
-            <div>
-              <FaAward className="text-4xl text-red-400 mx-auto mb-4" />
-              <h4 className="text-2xl font-bold text-white mb-2">3.8</h4>
-              <p className="text-gray-300">GPA</p>
-            </div>
-            <div>
-              <FaCalendarAlt className="text-4xl text-red-400 mx-auto mb-4" />
-              <h4 className="text-2xl font-bold text-white mb-2">2022</h4>
-              <p className="text-gray-300">Graduation Year</p>
-            </div>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   );

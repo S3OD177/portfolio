@@ -2,8 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaDownload, FaArrowRight, FaShieldAlt, FaBug, FaLock, FaCode } from 'react-icons/fa';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Home = () => {
+  const { homeData } = usePortfolio();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -75,15 +77,13 @@ const Home = () => {
               variants={itemVariants}
               className="text-2xl md:text-3xl text-gray-300 mb-6 font-light"
             >
-              IT Specialist & Computer Science Graduate
+              {homeData.title}
             </motion.p>
             <motion.p 
               variants={itemVariants}
               className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8"
             >
-              Proactive Computer Science graduate with experience in IT support, systems administration, and e-learning technology. 
-              Skilled in troubleshooting, system configuration, and network management with cybersecurity certifications. 
-              I help organizations enhance system performance and drive innovation in technology solutions.
+              {homeData.description}
             </motion.p>
           </motion.div>
 
@@ -92,7 +92,7 @@ const Home = () => {
               to="/contact" 
               className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-medium transition-all duration-300 hover:scale-105"
             >
-              Contact me here <FaArrowRight />
+              {homeData.ctaText} <FaArrowRight />
             </Link>
             <a
               href="/resume.pdf"
@@ -189,36 +189,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding">
-        <div className="container-custom text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="card max-w-2xl mx-auto"
-          >
-            <h2 className="text-4xl font-bold mb-6 text-white">
-              What's Next?
-            </h2>
-            <h3 className="text-2xl font-semibold mb-6 text-red-400">
-              Get In Touch
-            </h3>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Although I'm not currently looking for any new opportunities, my inbox is always open. 
-              Whether it's discussing potential security projects, sharing threat intelligence, 
-              or just want to say hi, I'll try my best to get back to you!
-            </p>
-            <Link 
-              to="/contact" 
-              className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-medium transition-all duration-300 hover:scale-105"
-            >
-              Say Hello <FaArrowRight />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+
     </section>
   );
 };

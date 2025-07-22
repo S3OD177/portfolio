@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaGithub, FaLinkedin, FaTwitter, FaDownload, FaPaperPlane, FaShieldAlt } from 'react-icons/fa';
 import { SiHackerone, SiBugcrowd } from 'react-icons/si';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Contact = () => {
+  const { contactData } = usePortfolio();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +14,20 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Icon mapping for contact info
+  const iconMap = {
+    FaEnvelope,
+    FaPhone,
+    FaMapMarkerAlt
+  };
+
+  // Icon mapping for social links
+  const socialIconMap = {
+    FaGithub,
+    FaLinkedin,
+    FaTwitter
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -48,47 +64,7 @@ const Contact = () => {
     }
   };
 
-  const contactInfo = [
-    {
-      icon: FaEnvelope,
-      title: 'Email',
-      value: 'salbinzaid@gmail.com',
-      link: 'mailto:salbinzaid@gmail.com',
-    },
-    {
-      icon: FaPhone,
-      title: 'Phone',
-      value: '+966 535 787 635',
-      link: 'tel:+966535787635',
-    },
-    {
-      icon: FaMapMarkerAlt,
-      title: 'Location',
-      value: 'Saudi Arabia',
-      link: null,
-    },
-  ];
 
-  const socialLinks = [
-    {
-      name: 'GitHub',
-      url: 'https://github.com/saudalbin',
-      icon: FaGithub,
-      color: 'hover:text-gray-300',
-    },
-    {
-      name: 'LinkedIn',
-      url: 'https://linkedin.com/in/saud-albin-zaid',
-      icon: FaLinkedin,
-      color: 'hover:text-blue-400',
-    },
-    {
-      name: 'Twitter',
-      url: 'https://twitter.com/saud_albin_zaid',
-      icon: FaTwitter,
-      color: 'hover:text-blue-400',
-    },
-  ];
 
   return (
     <section id="contact" className="min-h-screen pt-20">
@@ -253,8 +229,8 @@ const Contact = () => {
 
               {/* Contact Details */}
               <div className="space-y-6">
-                {contactInfo.map((info, index) => {
-                  const IconComponent = info.icon;
+                {contactData.contactInfo.map((info, index) => {
+                  const IconComponent = iconMap[info.icon];
                   const content = (
                     <div className="flex items-center space-x-4 p-4 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors">
                       <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
@@ -293,8 +269,8 @@ const Contact = () => {
                   Connect With Me
                 </h3>
                 <div className="flex space-x-4">
-                  {socialLinks.map((link) => {
-                    const IconComponent = link.icon;
+                  {contactData.socialLinks.map((link) => {
+                    const IconComponent = socialIconMap[link.icon];
                     return (
                       <a
                         key={link.name}
@@ -332,26 +308,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h2 className="text-3xl font-bold text-white mb-6">
-              Let's Work Together
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Whether you need IT support, system administration, or want to discuss
-              technology solutions and best practices, I'm here to help. Let's optimize your IT infrastructure.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+
     </section>
   );
 };

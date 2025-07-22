@@ -15,7 +15,6 @@ A modern, responsive portfolio website showcasing IT expertise, projects, and pr
   - Experience timeline
   - Education and certifications
   - Projects showcase
-  - Services offered
   - Client testimonials
   - Blog with filtering and search
   - Contact form and information
@@ -55,7 +54,8 @@ npm start
 Update the following files with your information:
 - `src/pages/Home.js` - Hero section content
 - `src/pages/About.js` - Bio, skills, and interests
-- `src/pages/Resume.js` - Work experience, education, certifications
+- `src/pages/Experience.js` - Work experience
+- `src/pages/Education.js` - Education and certifications
 - `src/pages/Projects.js` - Your projects
 - `src/pages/Contact.js` - Contact information
 - `src/components/Navbar.js` - Your name in the logo
@@ -120,9 +120,14 @@ portfolio/
 │   ├── pages/
 │   │   ├── Home.js
 │   │   ├── About.js
-│   │   ├── Resume.js
+│   │   ├── Skills.js
+│   │   ├── Experience.js
+│   │   ├── Education.js
 │   │   ├── Projects.js
-│   │   └── Contact.js
+│   │   ├── Testimonials.js
+│   │   ├── Blog.js
+│   │   ├── Contact.js
+│   │   └── Admin.js
 │   ├── App.js
 │   ├── index.js
 │   └── index.css
