@@ -15,9 +15,8 @@ A modern, responsive portfolio website showcasing IT expertise, projects, and pr
   - Experience timeline
   - Education and certifications
   - Projects showcase
-  - Client testimonials
-  - Blog with filtering and search
   - Contact form and information
+  - Admin panel for content management
 
 ## 🛠️ Technologies Used
 
@@ -124,10 +123,10 @@ portfolio/
 │   │   ├── Experience.js
 │   │   ├── Education.js
 │   │   ├── Projects.js
-│   │   ├── Testimonials.js
-│   │   ├── Blog.js
 │   │   ├── Contact.js
 │   │   └── Admin.js
+│   ├── context/
+│   │   └── PortfolioContext.js
 │   ├── App.js
 │   ├── index.js
 │   └── index.css

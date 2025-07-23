@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { 
   FaUser, FaLock, FaEdit, FaPlus, FaTrash, FaSave, FaEye, FaSignOutAlt,
   FaHome, FaInfoCircle, FaCogs, FaBriefcase, FaGraduationCap, 
-  FaEnvelope, FaTimes,
+  FaEnvelope,
   FaEyeSlash, FaArrowUp, FaArrowDown, FaCog, FaGripVertical
 } from 'react-icons/fa';
 import { usePortfolio } from '../context/PortfolioContext';
