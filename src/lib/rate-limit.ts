@@ -1,0 +1,30 @@
+const rateMap = new Map<string, { count: number; resetTime: number }>();
+
+// Clean up expired entries periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of rateMap) {
+    if (now > value.resetTime) rateMap.delete(key);
+  }
+}, 60_000);
+
+export function rateLimit(
+  key: string,
+  limit: number,
+  windowMs: number
+): { success: boolean; remaining: number } {
+  const now = Date.now();
+  const entry = rateMap.get(key);
+
+  if (!entry || now > entry.resetTime) {
+    rateMap.set(key, { count: 1, resetTime: now + windowMs });
+    return { success: true, remaining: limit - 1 };
+  }
+
+  if (entry.count >= limit) {
+    return { success: false, remaining: 0 };
+  }
+
+  entry.count++;
+  return { success: true, remaining: limit - entry.count };
+}

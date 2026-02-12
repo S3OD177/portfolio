@@ -1,28 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { contactFormSchema } from "@/lib/validators";
+import { rateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { name, email, message } = body;
-
-    if (!name || !email || !message) {
+    const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+    const { success } = rateLimit(`contact:${ip}`, 5, 60_000);
+    if (!success) {
       return NextResponse.json(
-        { error: "Name, email, and message are required" },
-        { status: 400 }
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
       );
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: "Invalid email address" },
-        { status: 400 }
-      );
+    const body = await request.json();
+    const result = contactFormSchema.safeParse(body);
+
+    if (!result.success) {
+      const firstError = result.error.issues[0]?.message ?? "Invalid input";
+      return NextResponse.json({ error: firstError }, { status: 400 });
     }
 
     await prisma.contactMessage.create({
-      data: { name, email, message },
+      data: result.data,
     });
 
     return NextResponse.json({ success: true });

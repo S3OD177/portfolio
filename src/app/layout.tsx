@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://saudalzaid.com"
+  ),
   title: "Saud Albin Zaid | IT Specialist & CS Graduate",
   description:
     "Portfolio of Saud Albin Zaid - Computer Science graduate and IT Specialist with expertise in systems administration, network management, and cybersecurity.",
@@ -25,6 +28,31 @@ export const metadata: Metadata = {
     "Portfolio",
     "Saudi Arabia",
   ],
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    title: "Saud Albin Zaid | IT Specialist & CS Graduate",
+    description:
+      "Computer Science graduate and IT Specialist with expertise in systems administration, network management, and cybersecurity.",
+    siteName: "Saud Albin Zaid Portfolio",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Saud Albin Zaid | IT Specialist & CS Graduate",
+    description:
+      "Computer Science graduate and IT Specialist with expertise in systems administration, network management, and cybersecurity.",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Saud Albin Zaid",
+  jobTitle: "IT Specialist",
+  description:
+    "Computer Science graduate and IT Specialist with expertise in systems administration, network management, and cybersecurity.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://saudalzaid.com",
 };
 
 export default function RootLayout({
@@ -34,6 +62,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >

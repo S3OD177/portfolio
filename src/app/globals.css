@@ -190,3 +190,17 @@ html { scroll-behavior: smooth; }
 .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
 .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
 .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter { animation: none; width: auto; border-right: none; }
+  .gradient-text { animation: none; }
+  .animate-float,
+  .animate-float-delayed,
+  .animate-float-slow { animation: none; }
+  .timeline-dot { animation: none; }
+  .stagger-children > * { animation: none; opacity: 1; transform: none; }
+  .card-hover { transition: none; }
+  .badge-hover { transition: none; }
+  .icon-hover { transition: none; }
+  html { scroll-behavior: auto; }
+}
