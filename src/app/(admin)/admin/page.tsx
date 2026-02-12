@@ -14,6 +14,14 @@ import {
   Clock,
 } from "lucide-react";
 
+async function safeCount(fn: () => Promise<number>): Promise<number> {
+  try { return await fn(); } catch { return 0; }
+}
+
+async function safeQuery<T>(fn: () => Promise<T[]>): Promise<T[]> {
+  try { return await fn(); } catch { return []; }
+}
+
 export default async function AdminDashboard() {
   const [
     experiences,
@@ -21,49 +29,49 @@ export default async function AdminDashboard() {
     certificates,
     skills,
     projects,
+    totalMessages,
+    unreadMessages,
     recentExperiences,
     recentProjects,
     recentCertificates,
+    recentMessages,
   ] = await Promise.all([
-    prisma.experience.count(),
-    prisma.education.count(),
-    prisma.certificate.count(),
-    prisma.skill.count(),
-    prisma.project.count(),
-    prisma.experience.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 2,
-      select: { id: true, position: true, company: true, createdAt: true },
-    }),
-    prisma.project.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 2,
-      select: { id: true, title: true, createdAt: true },
-    }),
-    prisma.certificate.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 2,
-      select: { id: true, name: true, createdAt: true },
-    }),
-  ]);
-
-  // Messages table may not exist yet - handle gracefully
-  let totalMessages = 0;
-  let unreadMessages = 0;
-  let recentMessages: { id: string; name: string; createdAt: Date }[] = [];
-  try {
-    [totalMessages, unreadMessages, recentMessages] = await Promise.all([
-      prisma.contactMessage.count(),
-      prisma.contactMessage.count({ where: { isRead: false } }),
+    safeCount(() => prisma.experience.count()),
+    safeCount(() => prisma.education.count()),
+    safeCount(() => prisma.certificate.count()),
+    safeCount(() => prisma.skill.count()),
+    safeCount(() => prisma.project.count()),
+    safeCount(() => prisma.contactMessage.count()),
+    safeCount(() => prisma.contactMessage.count({ where: { isRead: false } })),
+    safeQuery(() =>
+      prisma.experience.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 2,
+        select: { id: true, position: true, company: true, createdAt: true },
+      })
+    ),
+    safeQuery(() =>
+      prisma.project.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 2,
+        select: { id: true, title: true, createdAt: true },
+      })
+    ),
+    safeQuery(() =>
+      prisma.certificate.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 2,
+        select: { id: true, name: true, createdAt: true },
+      })
+    ),
+    safeQuery(() =>
       prisma.contactMessage.findMany({
         orderBy: { createdAt: "desc" },
         take: 2,
         select: { id: true, name: true, createdAt: true },
-      }),
-    ]);
-  } catch {
-    // contactMessage table doesn't exist yet
-  }
+      })
+    ),
+  ]);
 
   const stats = [
     { label: "Experiences", count: experiences, icon: Briefcase, href: "/admin/experiences" },
