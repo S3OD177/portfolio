@@ -4,9 +4,14 @@ import { prisma } from "@/lib/prisma";
 import { MessagesList } from "@/components/admin/messages-list";
 
 export default async function MessagesPage() {
-  const messages = await prisma.contactMessage.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  let messages: Awaited<ReturnType<typeof prisma.contactMessage.findMany>> = [];
+  try {
+    messages = await prisma.contactMessage.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  } catch {
+    // Table may not exist yet
+  }
 
   const unreadCount = messages.filter((m) => !m.isRead).length;
 

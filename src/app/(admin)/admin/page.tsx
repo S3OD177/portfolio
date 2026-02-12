@@ -21,20 +21,15 @@ export default async function AdminDashboard() {
     certificates,
     skills,
     projects,
-    totalMessages,
-    unreadMessages,
     recentExperiences,
     recentProjects,
     recentCertificates,
-    recentMessages,
   ] = await Promise.all([
     prisma.experience.count(),
     prisma.education.count(),
     prisma.certificate.count(),
     prisma.skill.count(),
     prisma.project.count(),
-    prisma.contactMessage.count(),
-    prisma.contactMessage.count({ where: { isRead: false } }),
     prisma.experience.findMany({
       orderBy: { createdAt: "desc" },
       take: 2,
@@ -50,12 +45,25 @@ export default async function AdminDashboard() {
       take: 2,
       select: { id: true, name: true, createdAt: true },
     }),
-    prisma.contactMessage.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 2,
-      select: { id: true, name: true, createdAt: true },
-    }),
   ]);
+
+  // Messages table may not exist yet - handle gracefully
+  let totalMessages = 0;
+  let unreadMessages = 0;
+  let recentMessages: { id: string; name: string; createdAt: Date }[] = [];
+  try {
+    [totalMessages, unreadMessages, recentMessages] = await Promise.all([
+      prisma.contactMessage.count(),
+      prisma.contactMessage.count({ where: { isRead: false } }),
+      prisma.contactMessage.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 2,
+        select: { id: true, name: true, createdAt: true },
+      }),
+    ]);
+  } catch {
+    // contactMessage table doesn't exist yet
+  }
 
   const stats = [
     { label: "Experiences", count: experiences, icon: Briefcase, href: "/admin/experiences" },
