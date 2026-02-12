@@ -1,11 +1,30 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { SignJWT } from "jose";
+import { loginSchema } from "@/lib/validators";
+import { rateLimit } from "@/lib/rate-limit";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const { password } = await request.json();
+    const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+    const { success } = rateLimit(`login:${ip}`, 5, 15 * 60_000);
+    if (!success) {
+      return NextResponse.json(
+        { error: "Too many attempts. Please try again later." },
+        { status: 429 }
+      );
+    }
 
-    if (!password || password !== process.env.ADMIN_PASSWORD) {
+    const body = await request.json();
+    const result = loginSchema.safeParse(body);
+
+    if (!result.success) {
+      return NextResponse.json(
+        { error: "Invalid password" },
+        { status: 401 }
+      );
+    }
+
+    if (result.data.password !== process.env.ADMIN_PASSWORD) {
       return NextResponse.json(
         { error: "Invalid password" },
         { status: 401 }

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ExternalLink, Github } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -32,7 +33,18 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
           {projects.map((project, index) => (
             <AnimateOnScroll key={project.id} delay={index * 150}>
-              <Card className="card-hover flex flex-col">
+              <Card className="card-hover flex flex-col overflow-hidden">
+                {project.imageUrl && (
+                  <div className="relative aspect-video w-full">
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                )}
                 <CardHeader>
                   <div className="flex items-start justify-between gap-2">
                     <CardTitle className="text-lg">{project.title}</CardTitle>

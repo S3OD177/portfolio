@@ -144,8 +144,9 @@ export async function GET(request: NextRequest) {
   const key = searchParams.get("key");
   const force = searchParams.get("force") === "true";
 
-  // Protect with JWT_SECRET
-  if (!key || key !== process.env.JWT_SECRET) {
+  // Protect with SEED_SECRET (falls back to JWT_SECRET for backwards compat)
+  const seedSecret = process.env.SEED_SECRET || process.env.JWT_SECRET;
+  if (!key || key !== seedSecret) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -182,7 +183,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Seed error:", error);
     return NextResponse.json(
-      { error: "Failed to seed database", details: String(error) },
+      { error: "Failed to seed database" },
       { status: 500 }
     );
   }

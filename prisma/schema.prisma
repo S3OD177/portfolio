@@ -47,6 +47,7 @@ model Experience {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  @@index([sortOrder])
   @@map("experiences")
 }
 
@@ -62,6 +63,7 @@ model Education {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
+  @@index([sortOrder])
   @@map("education")
 }
 
@@ -77,6 +79,7 @@ model Certificate {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
+  @@index([sortOrder])
   @@map("certificates")
 }
 
@@ -92,6 +95,7 @@ model Skill {
   sortOrder Int           @default(0)
   createdAt DateTime      @default(now())
 
+  @@index([sortOrder])
   @@map("skills")
 }
 
@@ -108,6 +112,7 @@ model Project {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  @@index([sortOrder])
   @@map("projects")
 }
 
@@ -147,5 +152,6 @@ model ContactMessage {
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
 
+  @@index([isRead])
   @@map("contact_messages")
 }
