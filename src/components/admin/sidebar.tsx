@@ -11,6 +11,7 @@ import {
   Wrench,
   FolderOpen,
   Mail,
+  MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -23,6 +24,7 @@ const navItems = [
   { href: "/admin/skills", label: "Skills", icon: Wrench },
   { href: "/admin/projects", label: "Projects", icon: FolderOpen },
   { href: "/admin/contact", label: "Contact", icon: Mail },
+  { href: "/admin/messages", label: "Messages", icon: MessageSquare },
 ];
 
 export function Sidebar() {

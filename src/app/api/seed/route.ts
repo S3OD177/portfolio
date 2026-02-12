@@ -127,6 +127,16 @@ CREATE TABLE IF NOT EXISTS "languages" (
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT "languages_pkey" PRIMARY KEY ("id")
 );
+
+CREATE TABLE IF NOT EXISTS "contact_messages" (
+  "id" TEXT NOT NULL DEFAULT gen_random_uuid()::text,
+  "name" TEXT NOT NULL,
+  "email" TEXT NOT NULL,
+  "message" TEXT NOT NULL,
+  "isRead" BOOLEAN NOT NULL DEFAULT false,
+  "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT "contact_messages_pkey" PRIMARY KEY ("id")
+);
 `;
 
 export async function GET(request: NextRequest) {

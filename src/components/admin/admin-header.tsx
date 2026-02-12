@@ -9,7 +9,7 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { LogOut, Menu, LayoutDashboard, User, Briefcase, GraduationCap, Award, Wrench, FolderOpen, Mail } from "lucide-react";
+import { LogOut, Menu, LayoutDashboard, User, Briefcase, GraduationCap, Award, Wrench, FolderOpen, Mail, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -22,6 +22,7 @@ const navItems = [
   { href: "/admin/skills", label: "Skills", icon: Wrench },
   { href: "/admin/projects", label: "Projects", icon: FolderOpen },
   { href: "/admin/contact", label: "Contact", icon: Mail },
+  { href: "/admin/messages", label: "Messages", icon: MessageSquare },
 ];
 
 export function AdminHeader() {
