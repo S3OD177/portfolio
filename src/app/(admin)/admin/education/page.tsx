@@ -8,7 +8,10 @@ export default async function AdminEducationPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Education</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Education</h1>
+        <p className="text-muted-foreground mt-1">Manage your academic background and degrees</p>
+      </div>
       <EducationList data={education} />
     </div>
   );

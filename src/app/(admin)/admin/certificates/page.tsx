@@ -8,7 +8,10 @@ export default async function AdminCertificatesPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Certificates</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Certificates</h1>
+        <p className="text-muted-foreground mt-1">Manage your professional certifications and credentials</p>
+      </div>
       <CertificatesList data={certificates} />
     </div>
   );

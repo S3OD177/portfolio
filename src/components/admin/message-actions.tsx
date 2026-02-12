@@ -1,6 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Trash2, Mail, MailOpen } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -35,7 +46,6 @@ export function MessageActions({ messageId, isRead }: MessageActionsProps) {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Delete this message?")) return;
     setLoading(true);
     try {
       await deleteMessage(messageId);
@@ -57,16 +67,36 @@ export function MessageActions({ messageId, isRead }: MessageActionsProps) {
       >
         {isRead ? <Mail className="h-4 w-4" /> : <MailOpen className="h-4 w-4" />}
       </Button>
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={handleDelete}
-        disabled={loading}
-        className="text-destructive hover:text-destructive"
-        title="Delete message"
-      >
-        <Trash2 className="h-4 w-4" />
-      </Button>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            disabled={loading}
+            className="text-destructive hover:text-destructive"
+            title="Delete message"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete this message?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete this message.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDelete}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

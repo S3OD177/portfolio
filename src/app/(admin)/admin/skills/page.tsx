@@ -8,7 +8,10 @@ export default async function AdminSkillsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Skills</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Skills</h1>
+        <p className="text-muted-foreground mt-1">Manage your technical and soft skills</p>
+      </div>
       <SkillsList data={skills} />
     </div>
   );

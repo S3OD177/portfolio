@@ -9,9 +9,10 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { LogOut, Menu, LayoutDashboard, User, Briefcase, GraduationCap, Award, Wrench, FolderOpen, Mail, MessageSquare } from "lucide-react";
+import { LogOut, Menu, LayoutDashboard, User, Briefcase, GraduationCap, Award, Wrench, FolderOpen, Mail, MessageSquare, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -29,6 +30,10 @@ export function AdminHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -75,10 +80,22 @@ export function AdminHeader() {
         </Sheet>
         <h1 className="text-lg font-semibold md:hidden">Admin</h1>
       </div>
-      <Button variant="ghost" size="sm" onClick={handleLogout}>
-        <LogOut className="h-4 w-4 mr-2" />
-        Logout
-      </Button>
+      <div className="flex items-center gap-2">
+        {mounted && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            title={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </Button>
+        )}
+        <Button variant="ghost" size="sm" onClick={handleLogout}>
+          <LogOut className="h-4 w-4 mr-2" />
+          Logout
+        </Button>
+      </div>
     </header>
   );
 }

@@ -6,7 +6,10 @@ export default async function AdminContactPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Contact Info</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Contact Info</h1>
+        <p className="text-muted-foreground mt-1">Manage your contact details and social links</p>
+      </div>
       <ContactForm data={contact} />
     </div>
   );

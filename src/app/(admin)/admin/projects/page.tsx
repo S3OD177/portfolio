@@ -8,7 +8,10 @@ export default async function AdminProjectsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Projects</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Projects</h1>
+        <p className="text-muted-foreground mt-1">Manage your portfolio projects and showcases</p>
+      </div>
       <ProjectsList data={projects} />
     </div>
   );
