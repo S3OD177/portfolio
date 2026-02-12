@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model About {
+  id        String   @id @default(cuid())
+  fullName  String
+  title     String
+  summary   String
+  avatarUrl String?
+  resumeUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("about")
+}
+
+model ContactInfo {
+  id          String   @id @default(cuid())
+  email       String
+  phone       String?
+  location    String?
+  linkedinUrl String?
+  githubUrl   String?
+  websiteUrl  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("contact_info")
+}
+
+model Experience {
+  id          String    @id @default(cuid())
+  company     String
+  position    String
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  description String?
+  isCurrent   Boolean   @default(false)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("experiences")
+}
+
+model Education {
+  id           String    @id @default(cuid())
+  institution  String
+  degree       String
+  fieldOfStudy String
+  startDate    DateTime?
+  endDate      DateTime?
+  description  String?
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("education")
+}
+
+model Certificate {
+  id            String    @id @default(cuid())
+  name          String
+  issuer        String
+  issueDate     DateTime?
+  expiryDate    DateTime?
+  credentialUrl String?
+  credentialId  String?
+  sortOrder     Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("certificates")
+}
+
+enum SkillCategory {
+  TECHNICAL
+  SOFT
+}
+
+model Skill {
+  id        String        @id @default(cuid())
+  name      String
+  category  SkillCategory
+  sortOrder Int           @default(0)
+  createdAt DateTime      @default(now())
+
+  @@map("skills")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  techStack   String[]
+  liveUrl     String?
+  githubUrl   String?
+  imageUrl    String?
+  isFeatured  Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Membership {
+  id           String    @id @default(cuid())
+  organization String
+  role         String?
+  startDate    DateTime?
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+
+  @@map("memberships")
+}
+
+enum Proficiency {
+  NATIVE
+  FLUENT
+  INTERMEDIATE
+  BASIC
+}
+
+model Language {
+  id          String      @id @default(cuid())
+  name        String
+  proficiency Proficiency
+  sortOrder   Int         @default(0)
+  createdAt   DateTime    @default(now())
+
+  @@map("languages")
+}
